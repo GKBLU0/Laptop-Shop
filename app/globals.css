@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    /* Updated to blue, green, and black color palette */
+    --background: 0 0% 100%; /* White for background */
+    --foreground: 222.2 84% 4.9%; /* Black for text */
+    --card: 0 0% 100%; /* White for cards */
+    --card-foreground: 222.2 84% 4.9%; /* Black for card text */
+    --popover: 0 0% 100%; /* White for popovers */
+    --popover-foreground: 222.2 84% 4.9%; /* Black for popover text */
+    --primary: 217.2 91.2% 59.8%; /* Blue for primary actions */
+    --primary-foreground: 210 20% 98%; /* Light blue for primary action text */
+    --secondary: 142.1 76.2% 36.3%; /* Green for secondary actions */
+    --secondary-foreground: 210 20% 98%; /* Light green for secondary action text */
+    --muted: 210 40% 96.1%; /* Light gray for muted backgrounds */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Gray for muted text */
+    --accent: 217.2 91.2% 59.8%; /* Blue for accents */
+    --accent-foreground: 210 20% 98%; /* Light blue for accent text */
+    --destructive: 0 84.2% 60.2%; /* Red for destructive actions */
+    --destructive-foreground: 210 20% 98%; /* Light red for destructive action text */
+    --border: 214.3 31.8% 91.4%; /* Light gray for borders */
+    --input: 214.3 31.8% 91.4%; /* Light gray for input fields */
+    --ring: 217.2 91.2% 59.8%; /* Blue for focus rings */
+    --chart-1: 217.2 91.2% 59.8%; /* Blue for chart data 1 */
+    --chart-2: 142.1 76.2% 36.3%; /* Green for chart data 2 */
+    --chart-3: 200 80% 60%; /* Cyan for chart data 3 */
+    --chart-4: 250 80% 60%; /* Purple for chart data 4 */
+    --chart-5: 100 70% 40%; /* Darker green for chart data 5 */
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 100%; /* White for sidebar */
+    --sidebar-foreground: 222.2 84% 4.9%; /* Black for sidebar text */
+    --sidebar-primary: 210 40% 96.1%; /* Light gray for sidebar primary */
+    --sidebar-primary-foreground: 222.2 84% 4.9%; /* Black for sidebar primary text */
+    --sidebar-accent: 217.2 91.2% 59.8%; /* Blue for sidebar accents */
+    --sidebar-accent-foreground: 210 20% 98%; /* Light blue for sidebar accent text */
+    --sidebar-border: 214.3 31.8% 91.4%; /* Light gray for sidebar borders */
+    --sidebar-ring: 217.2 91.2% 59.8%; /* Blue for sidebar focus rings */
+  }
+  .dark {
+    /* Updated dark mode colors to complement the blue-green-black theme */
+    --background: 222.2 84% 4.9%; /* Dark black for background */
+    --foreground: 210 20% 98%; /* Light gray for text */
+    --card: 217.2 32.4% 17.5%; /* Dark gray for cards */
+    --card-foreground: 210 20% 98%; /* Light gray for card text */
+    --popover: 217.2 32.4% 17.5%; /* Dark gray for popovers */
+    --popover-foreground: 210 20% 98%; /* Light gray for popover text */
+    --primary: 217.2 91.2% 59.8%; /* Blue for primary actions */
+    --primary-foreground: 222.2 84% 4.9%; /* Dark black for primary text */
+    --secondary: 142.1 76.2% 36.3%; /* Green for secondary actions */
+    --secondary-foreground: 222.2 84% 4.9%; /* Dark black for secondary text */
+    --muted: 217.2 32.4% 17.5%; /* Dark gray for muted backgrounds */
+    --muted-foreground: 215 20.4% 65%; /* Gray for muted text */
+    --accent: 217.2 91.2% 59.8%; /* Blue for accents */
+    --accent-foreground: 222.2 84% 4.9%; /* Dark black for accent text */
+    --destructive: 0 62.8% 30.6%; /* Dark red for errors */
+    --destructive-foreground: 210 20% 98%; /* Light red for destructive text */
+    --border: 217.2 32.4% 17.5%; /* Dark gray for borders */
+    --input: 217.2 32.4% 17.5%; /* Dark gray for input backgrounds */
+    --ring: 217.2 91.2% 59.8%; /* Blue for focus rings */
+    --chart-1: 217.2 91.2% 59.8%; /* Blue for chart data 1 */
+    --chart-2: 142.1 76.2% 36.3%; /* Green for chart data 2 */
+    --chart-3: 200 80% 60%; /* Cyan for chart data 3 */
+    --chart-4: 250 80% 60%; /* Purple for chart data 4 */
+    --chart-5: 100 70% 40%; /* Darker green for chart data 5 */
+    --sidebar-background: 222.2 84% 4.9%; /* Dark black for sidebar */
+    --sidebar-foreground: 210 20% 98%; /* Light gray for sidebar text */
+    --sidebar-primary: 217.2 32.4% 17.5%; /* Dark gray for sidebar primary */
+    --sidebar-primary-foreground: 210 20% 98%; /* Light gray for sidebar primary text */
+    --sidebar-accent: 217.2 91.2% 59.8%; /* Blue for sidebar accents */
+    --sidebar-accent-foreground: 222.2 84% 4.9%; /* Dark black for sidebar accent text */
+    --sidebar-border: 217.2 32.4% 17.5%; /* Dark gray for sidebar borders */
+    --sidebar-ring: 217.2 91.2% 59.8%; /* Blue for sidebar focus rings */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Add RTL support and Arabic font handling */
+  [dir="rtl"] {
+    direction: rtl;
+  }
+
+  [dir="ltr"] {
+    direction: ltr;
+  }
+
+  /* Arabic font support */
+  html[lang="ar"] {
+    font-family: "Noto Sans Arabic", "Cairo", "Amiri", "Tajawal", system-ui, -apple-system, sans-serif;
+  }
+
+  /* RTL-specific adjustments */
+  [dir="rtl"] .flex {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+    margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+    margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  /* RTL text alignment */
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left;
+  }
+
+  /* RTL margin and padding adjustments */
+  [dir="rtl"] .ml-2 {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+
+  [dir="rtl"] .mr-2 {
+    margin-right: 0;
+    margin-left: 0.5rem;
+  }
+
+  [dir="rtl"] .pl-4 {
+    padding-left: 0;
+    padding-right: 1rem;
+  }
+
+  [dir="rtl"] .pr-4 {
+    padding-right: 0;
+    padding-left: 1rem;
+  }
+
+  /* RTL icon positioning */
+  [dir="rtl"] .lucide {
+    transform: scaleX(-1);
+  }
+
+  /* Preserve certain icons that shouldn't be flipped */
+  [dir="rtl"] .lucide-globe,
+  [dir="rtl"] .lucide-user,
+  [dir="rtl"] .lucide-settings,
+  [dir="rtl"] .lucide-search {
+    transform: none;
+  }
+}

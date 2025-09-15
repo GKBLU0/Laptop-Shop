@@ -1,0 +1,149 @@
+// Prisma schema for MySQL
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String
+  password_hash String
+  role          String
+  phone         String?  @db.VarChar(191)
+  is_active     Boolean  @default(true)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+
+  sales Sale[]
+}
+
+model RegistrationRequest {
+  id                  Int       @id @default(autoincrement())
+  username            String
+  email               String
+  phone               String
+  password_hash       String
+  requested_role      String
+  status              String    @default("pending")
+  submitted_at        DateTime  @default(now())
+  reviewed_by_role    String?
+  reviewed_by_id      Int?
+  reviewed_by_username String?
+  reviewed_at         DateTime?
+  note                String?
+  email_token         String    @unique
+  email_confirmed     Boolean   @default(false)
+}
+
+model Laptop {
+  id                 Int      @id @default(autoincrement())
+  brand              String
+  model              String
+  processor          String
+  ram                String
+  storage            String
+  graphics_card      String
+  screen_size        String
+  price              Float
+  cost               Float
+  quantity           Int
+  low_stock_threshold Int
+  category           String
+  supplier           String
+  warranty_months    Int
+  description        String?
+  image_url          String?
+  created_at         DateTime @default(now())
+  updated_at         DateTime @default(now())
+
+  sales Sale[]
+}
+
+model Customer {
+  id                Int      @id @default(autoincrement())
+  name              String
+  email             String
+  phone             String
+  address           String
+  preferred_brands  String
+  notes             String
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now())
+
+  sales Sale[]
+  installments Installment[]
+}
+
+model Sale {
+  id              Int      @id @default(autoincrement())
+  laptop_id       Int
+  customer_id     Int
+  user_id         Int
+  quantity        Int
+  unit_price      Float
+  total_amount    Float
+  payment_method  String
+  sale_date       DateTime @default(now())
+  warranty_expiry DateTime
+  status          String    @default("completed")
+
+  laptop   Laptop   @relation(fields: [laptop_id], references: [id])
+  customer Customer @relation(fields: [customer_id], references: [id])
+  user     User     @relation(fields: [user_id], references: [id])
+
+  Installment Installment?
+}
+
+model Installment {
+  id             Int      @id @default(autoincrement())
+  sale_id        Int      @unique
+  customer_id    Int
+  total_amount   Float
+  monthly_amount Float
+  months         Int
+  paid_months    Int
+  next_due_date  DateTime
+  status         String   @default("active")
+  created_at     DateTime @default(now())
+
+  sale     Sale     @relation(fields: [sale_id], references: [id])
+  customer Customer @relation(fields: [customer_id], references: [id])
+}
+
+model Repair {
+  id                Int      @id @default(autoincrement())
+  laptop_id         Int
+  customer_id       Int
+  issue_description String
+  repair_cost       Float
+  status            String   @default("pending")
+  created_at        DateTime @default(now())
+  completed_at      DateTime?
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  user_id     Int
+  action      String
+  table_name  String
+  record_id   Int
+  old_values  String
+  new_values  String
+  timestamp   DateTime @default(now())
+}
+
+model Backup {
+  id            Int      @id @default(autoincrement())
+  filename      String
+  created_at    DateTime @default(now())
+  size          String
+  records_count Int
+  description   String
+}
+
+// End of schema

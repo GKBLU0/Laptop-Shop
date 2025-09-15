@@ -1,0 +1,142 @@
+ZANZIBAR LAPTOP SHOP
+Simple Project Guide and Feature Highlights
+
+WHAT THIS IS 💡
+- A complete laptop store system to help you manage:
+  - Inventory (laptops)
+  - Sales and cart
+  - Customers
+  - Repairs
+  - Installment plans
+  - Admin tasks (users, backups, logs)
+
+HOW IT SAVES YOUR DATA 💾
+- MySQL database (main source of truth)
+- Also keeps a JSON backup (data/db.json)
+- Also caches in your browser (localStorage) for faster loads
+
+MAIN SCREENS 🖥️
+- Dashboard: key numbers, low stock alerts
+- Inventory: add/edit/delete laptops (with undo/redo)
+- Sales/Cart: checkout, creates sales and optional installments
+- Customers: manage customer info and history
+- Repairs: track repair requests and status
+- Reports: basic placeholders to expand later
+- Advanced: notifications, warranty alerts, repairs manager, installments manager, audit log, backups, approvals
+
+BACKUPS & ROLLBACKS 🔄
+- Create backups from the app
+- Download current data
+- Upload a backup to instantly restore (updates MySQL + JSON)
+
+LOGIN & ROLES 🔐
+- Three roles: admin, manager, worker
+- Each role sees and can do different things (admin has full control)
+
+NICE TOUCHES ✨
+- Press-and-hold eye icon to view passwords briefly
+- Case-insensitive username login and space-trimming
+- Helpful alerts and toasts
+- Simple tables and cards for clean reading
+
+WHAT’S UNDER THE HOOD 🛠️
+- Next.js 15 + React
+- shadcn/ui components + Tailwind CSS
+- Prisma ORM + MySQL
+- API routes for data/backup operations
+
+WHERE TO CHANGE THINGS 🔧
+- Users seeding: scripts/seed-users.js
+- Database schema: prisma/schema.prisma
+- Core data logic: lib/database.ts
+- Pages & components: app/* and components/*
+
+COMMON TASKS ✅
+- Set database connection: .env → DATABASE_URL
+- Generate Prisma client: npm run prisma:generate
+- Push schema: npm run prisma:push
+- View DB in a UI: npm run prisma:studio
+- Reset demo users: npm run db:seed:users
+
+SECURITY NOTE 🔒
+- Passwords are plain text for demo simplicity.
+- For production: use hashing (bcrypt/argon2) and server-side auth.
+
+KNOWN LIMITS 🧪
+- Email sending is mocked
+- Some reports are just starters
+- Undo/redo history is client-side
+
+NEED HELP? 🙋
+- Check README.md for setup
+- Ask for any customization you need
+
+
+
+
+Here are high-impact, practical enhancements to consider next:
+
+Customer and Sales
+*Loyalty tiers and rewards: auto-assign tiers, points, coupons
+*Quotes and pro-forma invoices: convert to sales with one click
+*Returns/Refunds workflow: RMA numbers, reasons, restocking impacts
+*Email/SMS notifications: order status, warranty reminders, installments due
+
+Inventory and Purchasing
+*Supplier POs and receiving: generate POs, receive stock, cost updates
+*Stocktakes and adjustments: cycle counts, variance reports
+*Bundle/kits support: sell kits; auto-deduct components
+*Barcode/QR support: scan to add to cart, receive, or lookup
+
+Installments and Finance
+*Multiple payment schedules: weekly/biweekly/custom
+*Payment ledger: partial payments, receipts, export to CSV/PDF
+*Automated dunning: escalating reminders for overdue accounts
+*Finance reports: aging, default rates, MRR for installments
+
+Repairs and Service
+*Technician assignments and SLAs: due dates, turnaround tracking
+*Parts usage: link used parts to stock deduction and costs
+*Customer approvals: send estimate, digital approval, log signature
+*Repair templates: common issues with predefined tasks/parts
+
+Analytics and Reporting
+*Sales dashboards by brand/model/user: time-series, cohort, funnels
+*Profitability by SKU/customer: COGS roll-ups; ABC analysis
+*Forecasts: demand and stock-out predictions using simple models
+*Export center: scheduled CSV/PDF exports to email or S3
+
+User Management and Security
+*Role-permission matrix: granular actions vs areas
+*Audit log search and export: filters, CSV/PDF
+*Two-factor authentication: TOTP (Authy/Google Authenticator)
+*Session control: force logout, device/session list
+
+UX and Productivity
+*Global search command bar: jump to laptops, customers, repairs
+*Keyboard shortcuts: cart operations, quick-add, save
+*Inline editing in tables: reduce modal usage
+*Dark/light auto theming per system time
+
+Backups and Integrations
+*Offsite backups: S3/Azure/Google Cloud with retention policy
+*Versioned backups: diff/restore a specific table only
+*Accounting integration: QuickBooks/Xero sync (customers, invoices, payments)
+*Email providers: switch mock to Resend/SendGrid with templates
+
+E-commerce and Omnichannel
+*Public catalog (optional): shareable product pages; reserve in-store
+*Payment gateways: Stripe/Adyen for card payments
+*Tax/VAT handling: per-region rules, invoices with tax breakdowns
+*Shipping integrations: label printing, tracking links
+
+Developer and Ops
+*Migrations and seed suites: dev/demo/production seed profiles
+*Background jobs: queue for emails, reports, backups (BullMQ/Cloud Tasks)
+*Observability: Sentry for errors, OpenTelemetry traces, audit dashboards
+*Test coverage: unit (Jest), component (RTL), e2e (Playwright/Cypress)
+
+Data Hygiene and Quality
+*Validation rules: duplicate detection for customers and products
+*Enrichment: auto-fetch laptop specs by model (optional API)
+*GDPR tooling: export/delete customer data on request
