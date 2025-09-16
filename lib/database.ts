@@ -595,22 +595,6 @@ export class DatabaseService {
     this.saveStateToStorage()
   }
 
-
-  updateRepair(id: number, updates: Partial<Repair>): Repair | null {
-    const index = this.repairs.findIndex((repair) => repair.id === id)
-    if (index === -1) return null
-
-    const oldRepair = { ...this.repairs[index] }
-    this.repairs[index] = {
-      ...this.repairs[index],
-      ...updates,
-    }
-
-    this.logAudit(1, "UPDATE", "repairs", id, JSON.stringify(oldRepair), JSON.stringify(this.repairs[index]))
-    this.saveStateToStorage()
-    return this.repairs[index]
-  }
-
   // Customer operations
   getCustomers(): Customer[] {
     return this.customers
